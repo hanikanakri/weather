@@ -76,13 +76,11 @@ class _HomePageState extends State<HomePage> {
                           const Expanded(
                             child: RotatedBox(
                               quarterTurns: 45,
-                              child: Expanded(
-                                child: Text(
-                                  'weather state',
-                                  style: TextStyle(
-                                    fontSize: 25,
-                                    color: Colors.white,
-                                  ),
+                              child: Text(
+                                'weather state',
+                                style: TextStyle(
+                                  fontSize: 25,
+                                  color: Colors.white,
                                 ),
                               ),
                             ),
