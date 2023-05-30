@@ -10,10 +10,10 @@ class TriangleClipper extends CustomClipper<Path> {
 
 
 
-    Paint paint0 = Paint()
-      ..color = const Color.fromARGB(255, 33, 150, 243)
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 1.0;
+    // Paint paint0 = Paint()
+    //   ..color = const Color.fromARGB(255, 33, 150, 243)
+    //   ..style = PaintingStyle.stroke
+    //   ..strokeWidth = 1.0;
 
 
 
