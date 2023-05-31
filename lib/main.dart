@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:weather/utils/search_page.dart';
 
 import 'utils/home_page.dart';
 
@@ -19,7 +20,8 @@ class MyApp extends StatelessWidget {
 
 
       theme: ThemeData.light(),
-      getPages: [GetPage(name: '/', page: () =>const HomePage())],
+      getPages: [GetPage(name: '/', page: () =>const HomePage(),),
+      GetPage(name: '/SearchPage', page: () => SearchPage())],
     );
   }
 }

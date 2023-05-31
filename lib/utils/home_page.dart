@@ -3,13 +3,17 @@ import 'package:get/get.dart';
 import 'package:weather/controller/home_page_controller.dart';
 import 'package:weather/model/clip_path.dart';
 import 'package:weather/model/text_style.dart';
+import 'package:weather/network/http_handler.dart';
+
+import 'package:weather/utils/search_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    HomePageController controller = Get.put(HomePageController());
+    HomePageController controller = Get.put(HomePageController() );
+    ApiHttpHandler apiHttpHandler = Get.put(ApiHttpHandler() );
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -19,15 +23,21 @@ class HomePage extends StatelessWidget {
           return Text(controller.apiWeatherInfoModel.city);
         }),
         leading: IconButton(
-          onPressed: () {
-            controller.getWeather();
+          onPressed: () async {
+            String? cityName = await Get.to(SearchPage());
+            if (cityName != null) {
+              controller.loadData1();
+            }
+            controller.loadData();
+            controller.apiWeatherInfoModel =await apiHttpHandler.getWeatherForCityName(cityName!);
           },
           icon: const Icon(Icons.location_on),
         ),
         actions: [
           IconButton(
             onPressed: () {
-              controller.checkPermissionAndGetLocation();
+              controller.loadData1();
+              controller.getCurrentWeatherForMyLocation();
             },
             icon: const Icon(Icons.refresh_sharp),
           ),
@@ -71,8 +81,7 @@ class HomePage extends StatelessWidget {
                                         child: GetBuilder<HomePageController>(
                                             builder: (logic) {
                                           return Text(
-                                            controller
-                                                .apiWeatherInfoModel.temp
+                                            controller.apiWeatherInfoModel.temp
                                                 .toStringAsFixed(1),
                                             style: const TextStyle(
                                               fontSize: 150,
@@ -154,8 +163,8 @@ class HomePage extends StatelessWidget {
                                         Text(
                                           controller.apiWeatherInfoModel.temp
                                               .toStringAsFixed(1),
-                                          style:
-                                              const TextStyle(color: Colors.black),
+                                          style: const TextStyle(
+                                              color: Colors.black),
                                         )
                                       ],
                                     );
